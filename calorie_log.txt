@@ -1,0 +1,32 @@
+# --- Task 6: Bonus - Save Session Log to File ---
+import datetime
+
+save_choice = input("\nDo you want to save this report to a file? (yes/no): ").strip().lower()
+
+if save_choice == "yes":
+    # Create a timestamped filename for uniqueness
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    filename = f"calorie_log_{timestamp}.txt"
+
+    # Open file for writing
+    with open(filename, "w") as file:
+        file.write("DAILY CALORIE TRACKER REPORT\n")
+        file.write("=" * 40 + "\n")
+        file.write(f"Date & Time: {datetime.datetime.now()}\n\n")
+        file.write(f"{'Meal Name':<20}{'Calories (kcal)':>15}\n")
+        file.write("-" * 35 + "\n")
+
+        # Write meal data to file
+        for meal, cal in zip(meals, calories):
+            file.write(f"{meal:<20}{cal:>15.2f}\n")
+
+        file.write("-" * 35 + "\n")
+        file.write(f"{'Total:':<20}{total_calories:>15.2f}\n")
+        file.write(f"{'Average per meal:':<20}{average_calories:>15.2f}\n")
+        file.write("=" * 40 + "\n")
+        file.write(status + "\n")
+
+    print(f"\n✅ Report saved successfully as '{filename}'!")
+
+else:
+    print("\nReport not saved. Thank you for using the tracker!")
